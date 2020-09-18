@@ -3,7 +3,7 @@ package com.example.reporter.dto;
 import javax.persistence.*;
 import java.util.Date;
 @Entity
-@Table(name = "article")
+@Table
 public class ArticleDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
