@@ -1,5 +1,7 @@
 package com.example.reporter;
 
+import com.example.reporter.dto.ArticleDto;
+import com.example.reporter.service.ArticleService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,6 +18,9 @@ public class Main {
     private static final String URL = "https://reporter-ua.com";
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    ArticleService service;
+
 
     @Scheduled(fixedRate = 30000000)
     public void getElements() throws IOException {
@@ -32,12 +37,22 @@ public class Main {
             // Elements ref = page.select(".e-news-item-title");
 
             for (int j = 0; j < items.size(); j++) {
+
                 String itemHref = items.get(j).attr("href");
                 System.out.println("link: " + items.get(j).attr("href"));
-                System.out.println("Text: " + items.get(j).text());
-                System.out.println("date: " + dates.get(j).text());
+                String heading = items.get(j).text();
+                System.out.println("Text: " + heading);
+                String date = dates.get(j).text();
+                System.out.println("date: " + date);
                 System.out.println("image" + images.get(j));
-                System.out.println("description:" + shortDescription.get(j).text());
+                String description = shortDescription.get(j).text();
+                System.out.println("description:" + description);
+
+
+                Elements itemLink = page.select(".e-news-item-title>a");
+                System.out.println(itemLink.get(j).attr("LINK: "+ "href"));
+                ArticleDto articleDto = new ArticleDto(heading,description,date);
+service.save(articleDto);
                 //  System.out.println("ref:"+ ref.get(j).attr("href"));
                 //     System.out.println("LINK:"+links.get(j).attr("href"));
 
