@@ -1,0 +1,6 @@
+        // System.out.println(doc.select(".e-news-item-title > a"));
+//        System.out.println(doc.select(".e-news-item-text"));
+//        System.out.println(doc.select(".post-date"));
+//        System.out.println(doc.select(".e-news-item-img > a > img"));
+        //     System.out.println(doc.select(".field-item > p:nth-child(1) > strong:nth-child(1) > a:nth-child(1)"));
+        //     System.out.println(doc.select(".field-items"));
