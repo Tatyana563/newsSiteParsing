@@ -1,14 +1,15 @@
 package com.example.reporter.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String heading;
     private String shortDescription;
     private Date date;
@@ -16,9 +17,10 @@ public class Article {
     private String link;
     private String description;
     private String text;
-    private String caregory;
+    private String category;
+    private String imageUrl;
 
-    public Article(String heading, String shortDescription, Date date, String source, String link, String description, String text, String caregory) {
+    public Article(String heading, String shortDescription, Date date, String source, String link, String description, String text, String category, String imageUrl) {
         this.heading = heading;
         this.shortDescription = shortDescription;
         this.date = date;
@@ -26,10 +28,19 @@ public class Article {
         this.link = link;
         this.description = description;
         this.text = text;
-        this.caregory = caregory;
+        this.category = category;
+        this.imageUrl = imageUrl;
     }
 
     public Article() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getHeading() {
@@ -60,8 +71,8 @@ public class Article {
         return text;
     }
 
-    public String getCaregory() {
-        return caregory;
+    public String getCategory() {
+        return category;
     }
 
     public void setHeading(String heading) {
@@ -92,7 +103,31 @@ public class Article {
         this.text = text;
     }
 
-    public void setCaregory(String caregory) {
-        this.caregory = caregory;
+    public void setCategory(String caregory) {
+        this.category = caregory;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", heading='" + heading + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", date=" + date +
+                ", source='" + source + '\'' +
+                ", link='" + link + '\'' +
+                ", description='" + description + '\'' +
+                ", text='" + text + '\'' +
+                ", category='" + category + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
     }
 }

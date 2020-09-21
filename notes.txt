@@ -4,3 +4,44 @@
 //        System.out.println(doc.select(".e-news-item-img > a > img"));
         //     System.out.println(doc.select(".field-item > p:nth-child(1) > strong:nth-child(1) > a:nth-child(1)"));
         //     System.out.println(doc.select(".field-items"));
+
+
+
+Поиск элементов по селектору
+jQuery("div.e-news > div.e-news-item")
+
+Получение элемента по селектору и индексу
+jQuery("div.e-news > div.e-news-item:eq(4)")
+Поиск элементов по селектору и получение элемента из списка найденных по индексу
+jQuery("div.e-news > div.e-news-item").eq(4)
+
+Поиск вложенных элементов
+jQuery("").find("");
+Получаем 5ю "новость" и внутри нее ищем ссылку в заголовке
+jQuery("div.e-news > div.e-news-item:eq(4)").find(".e-news-item-title a")
+..и получаем из ссылки текст
+jQuery("div.e-news > div.e-news-item:eq(4)").find(".e-news-item-title a").text()
+
+
+
+Варианты "дополнения" статей:
+1. Сразу после получения заголовка с URL - получить конечную страницу, и распарсить ее.
+ Далее сохранить статью в бд
+
+ Article description
+jQuery(".field-item p strong")
+
+Find article body
+jQuery(".field-item p:not(:first)")
+
+2. Отдельный поток по расписанию парсит заголовки (1)
+Отдельный поток проверяет наличие в базе заголовков без текста (запрашивает порцию) (2)
+Параллельно запускает обработку нескольких страниц (статей) (workers)
+
+-в потоке 2 создаем workers: "new Thread(new Runnable(){...})"
+
+-в потоке 2 создаем threadPool и добавляем в него задачи (Runnable), "завершаем", ждем завершения задач пула
+
+-в потоке 2 создаем workers: "new Thread(new Runnable(){...})", предварительно создаем CountDownLatch,
+в каждом воркере по завершению работы со страницей уменьшаем счетчик.
+в потоке 2 после того как будут созданы все воркеры, ожидаем завершение CountDownLatch.

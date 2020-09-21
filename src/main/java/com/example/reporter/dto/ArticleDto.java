@@ -7,9 +7,18 @@ import java.util.Date;
 public class ArticleDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String heading;
     private String shortDescription;
     private String date;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getHeading() {
         return heading;
