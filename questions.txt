@@ -1,0 +1,14 @@
+1)
+.e-news > .e-news-item
+2)
+e-news > .e-news-item:eq(4)
+3)
+jQuery("div.e-news > div.e-news-item:eq(4)")
+
+jQuery("div.e-news > div.e-news-item").eq(4)
+
+4) .field-item p:not(:first)
+
+5) description description  varchar(1000) null,
+6)text = singleArticle.select(".field-item p:not(:first)").text();
+7) ??? in DB
