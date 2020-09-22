@@ -23,8 +23,9 @@ public class Article {
     private String text;
     private String category;
     private String imageUrl;
+    private boolean postProcessed;
 
-    public Article(String heading, String shortDescription, Date date, String source, String link, String description, String text, String category, String imageUrl) {
+    public Article(String heading, String shortDescription, Date date, String source, String link, String description, String text, String category, String imageUrl, boolean postProcessed) {
         this.heading = heading;
         this.shortDescription = shortDescription;
         this.date = date;
@@ -34,6 +35,7 @@ public class Article {
         this.text = text;
         this.category = category;
         this.imageUrl = imageUrl;
+        this.postProcessed = postProcessed;
     }
 
     public Article() {
@@ -119,6 +121,14 @@ public class Article {
         this.imageUrl = imageUrl;
     }
 
+    public boolean isPostProcessed() {
+        return postProcessed;
+    }
+
+    public void setPostProcessed(boolean postProcessed) {
+        this.postProcessed = postProcessed;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
@@ -132,6 +142,7 @@ public class Article {
                 ", text='" + text + '\'' +
                 ", category='" + category + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", postProcessed='" + postProcessed + '\'' +
                 '}';
     }
 }

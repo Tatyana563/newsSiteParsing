@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
@@ -20,7 +21,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     // @Query("from Article as a ORDER BY a.id LIMIT :length OFFSET :index")
     // List<Article>getChunk(@Param("length") int lenght, @Param("offset") int index);
-    @Query("from Article as a where a.text IS NULL OR a.text = '' ORDER BY a.id ASC  ")
+    @Query("from Article as a where a.postProcessed = false ORDER BY a.id ASC  ")
     List<Article> getChunk(PageRequest pageable);
 
     Article findById(int id);
@@ -29,4 +30,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
     @Query(" update Article a set a.text=:text where a.id=:id ")
     @Transactional
     void updateText(@Param("text") String myText, @Param("id") Integer myId);
+
+    Optional<Article> findByLink(String link);
+    boolean existsAllByLink(String link);
 }
