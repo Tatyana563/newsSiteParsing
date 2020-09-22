@@ -22,7 +22,8 @@ jQuery("div.e-news > div.e-news-item:eq(4)").find(".e-news-item-title a")
 ..и получаем из ссылки текст
 jQuery("div.e-news > div.e-news-item:eq(4)").find(".e-news-item-title a").text()
 
-
+Change coding of DB to avoid special symbols instead of text:
+ALTER DATABASE reporter CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 Варианты "дополнения" статей:
 1. Сразу после получения заголовка с URL - получить конечную страницу, и распарсить ее.
