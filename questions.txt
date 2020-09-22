@@ -11,4 +11,4 @@ jQuery("div.e-news > div.e-news-item").eq(4)
 
 5) description description  varchar(1000) null,
 6)text = singleArticle.select(".field-item p:not(:first)").text();
-7) ??? in DB
+7) category

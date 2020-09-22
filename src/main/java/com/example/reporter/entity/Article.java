@@ -1,5 +1,7 @@
 package com.example.reporter.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,7 +17,9 @@ public class Article {
     private Date date;
     private String source;
     private String link;
+    @Length(max = 1000000)
     private String description;
+    @Length(max = 1000000)
     private String text;
     private String category;
     private String imageUrl;
