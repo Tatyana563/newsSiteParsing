@@ -42,9 +42,6 @@ public class ArticleUpdateTask implements Runnable {
             Element category = articlePage.select(".topmenu2 .menu a.active-trail").first();
             String categoryText = category.text();
             LOG.info("Категория '{}'", categoryText);
-            //  String categ = category.select("li.active-trail:nth-child(1) > a:nth-child(1)").text();
-//                String categ = category.select(".menu li> a").text();
-
 
             article.setDescription(description);
             article.setText(text);
@@ -62,5 +59,4 @@ public class ArticleUpdateTask implements Runnable {
             latch.countDown();
         }
     }
-
 }

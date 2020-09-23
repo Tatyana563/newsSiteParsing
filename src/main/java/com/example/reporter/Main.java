@@ -33,21 +33,22 @@ public class Main {
     private static final String WORLD_NEWS = URL + "/world-news";
     private static final String PAGE_PARAM_FORMAT = WORLD_NEWS + "?page=%d";
     private static final String DATE_FORMAT = "dd.MM.yyyy' - 'HH:mm";
-
-    @Value("${reporter.api.number-of-pages}")
-    private Integer numberOfPages;
-    @Value("${reporter.api.chunk-size}")
-    private Integer chunkSize;
-    @Value("${reporter.thread-pool.pool-size}")
-    private Integer threadPoolSize;
+//variant1 - see application.properties
+//    @Value("${reporter.api.number-of-pages}")
+//    private Integer numberOfPages;
+//    @Value("${reporter.api.chunk-size}")
+//    private Integer chunkSize;
+//    @Value("${reporter.thread-pool.pool-size}")
+//    private Integer threadPoolSize;
+    ConfigProperties config = new ConfigProperties();
     @Autowired
     ArticleRepository articleRepository;
 
     @Scheduled(fixedRate = 300000)
     @Transactional
-    public void getElements2() throws IOException, ParseException {
+    public void getElements() throws IOException, ParseException {
         LOG.info("Получаем список новостей...");
-        for (int i = 0; i < numberOfPages; i++) {
+        for (int i = 0; i < config.getChunk(); i++) {
             LOG.info("Получаем список новостей - страница {}", i);
             Document newsPage = Jsoup.connect(String.format(PAGE_PARAM_FORMAT, i)).get();
             processPage(newsPage);
@@ -57,10 +58,10 @@ public class Main {
 
     @Scheduled(initialDelay = 20000, fixedRate = 30000000)
     @Transactional
-    public void getAdditionalArticleInfo() throws IOException, ParseException, InterruptedException {
+    public void getAdditionalArticleInfo() throws  InterruptedException {
         LOG.info("Получаем дополнитульную информацию о статьях...");
-        ExecutorService executorService = Executors.newFixedThreadPool(threadPoolSize);
-        PageRequest pageRequest = PageRequest.of(0, chunkSize);
+        ExecutorService executorService = Executors.newFixedThreadPool(config.getPoolSize());
+        PageRequest pageRequest = PageRequest.of(0, config.getChunk());
         List<Article> chunk = articleRepository.getChunk(pageRequest);
         LOG.info("Получили из базы {} статей", chunk.size());
         while (!chunk.isEmpty()) {
@@ -78,7 +79,7 @@ public class Main {
         executorService.shutdown();
     }
 
-    private void processPage(Document page) throws ParseException, IOException {
+    private void processPage(Document page) throws ParseException{
         Elements articleElements = page.select("div.e-news > div.e-news-item");
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         for (Element articleElement : articleElements) {
